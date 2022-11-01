@@ -1,0 +1,62 @@
+## url
+https://www.atlantic.net/vps-hosting/how-to-backup-and-restore-database-in-postgresql/
+
+ $ psql -h localhost -p 5432 -U myjob_admin myjob_db;
+
+ ---------BACKUP-----------
+
+
+ $ sudo su postgres
+
+ $ password
+
+ $ psql -l;
+
+ -----------DATABASE
+ 
+ $ pg_dump [source-database] > /path.sql   -->> .dump to backup without data
+ 		(or)
+ $ pg_dump -d [source-database] -f [database_backup.sql]
+
+ $ chmod 777 -R /path
+
+
+
+postgres@emma-whatson:/home/innovix00$ pg_dump sri > /home/innovix00/db2/sri.sql
+postgres@emma-whatson:/home/innovix00$ pg_dump sri > /home/innovix00/db2/sri2.dump
+postgres@emma-whatson:/home/innovix00$ pg_dump -s sri > /home/innovix00/db2/sri2.dump
+postgres@emma-whatson:/home/innovix00$ pg_dump -s lineone > /home/innovix00/db2/lineone.dump
+postgres@emma-whatson:/home/innovix00$ pg_dump lineone > /home/innovix00/db2/lineone.sql
+postgres@emma-whatson:/home/innovix00$ 
+
+
+ -----------TABLE
+  
+ $ pg_dump -d [source-database] -t [schema.table_name]-f [dbtable_backup.sql]
+
+
+ --------------RESOTRE--------------
+
+ # create role
+   *For Reference:
+
+  (CREATE ROLE "__" WITH LOGIN  PASSWORD '__' SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;)
+ 
+ # create database
+ 
+ -----------DATABASE
+ 
+ $ psql dpname </path.sql
+  		(or)
+   psql -d [destination_database] -f [database_backup.sql]
+ 
+ -----------TABLE
+ 
+ $ psql -d [source-database] -f testdb_mytab_backup.sql
+
+ ------------Drop Dp---------------
+
+  DROP DATABASE dbfile;
+  
+  
+  

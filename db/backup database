@@ -1,0 +1,32 @@
+
+ # BACKUP DATABASE
+
+
+ sudo su postgres
+
+ password
+
+ psql -l;
+
+ chmod 777 -R /home/innovix00/db2
+ 
+ pg_dump dbname > /home/innovix00/db2/sri.sql;
+
+
+
+
+
+ # RESOTRE DATABASE
+
+ # create role
+   *For Reference:
+
+  (CREATE ROLE "__" WITH LOGIN  PASSWORD '__' SUPERUSER INHERIT CREATEDB CREATEROLE REPLICATION;)
+ 
+ # create database
+ 
+ psql dpname </path.sql
+
+ # Drop Dp
+
+  DROP DATABASE dbfile;
