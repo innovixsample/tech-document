@@ -1,0 +1,80 @@
+                  
+                  
+                          Java 8                                                       Java 11
+                          
+                          
+                          
+    1.        The appletviewer tool is available in Java 8.                  The appletviewer tool is not available in Java 11.
+     
+              Ex:console page another field                                  Ex:same page console
+              
+              
+               
+    2.        Java 8 has the AWTUtilities class, which we didn't             In Java 11, the AWTUtilities class is not available.
+              recommend you to use because it can break 
+              any program depending on it.                
+                          
+                    
+                                                  
+    3.         It has fewer string methods.                                 Several new methods of String such as isBlank(), lines(),repeat(n), 
+                                                                            stripLeading(), stripTrailing(), and strip() are  introduce.
+                          
+                  
+                          
+    4.        No special variables are used for lambda                      Java 11 allows us to use var variables to be used in lambda expressions.
+              parameters.              
+                          
+              Ex:Array.sort(testString,new Comparator                       Ex:Arrays.sort(testStrings, (s1,s2)->{return(s1.length()-s2.length());}); 
+              <String>(){
+              @override
+              public int compare(String s1,sTRING S2){
+              return (s1.length()-s2.length());
+              }});   
+             
+             
+             
+                                 
+    5.        JMC and JavaFX are available in the Oracle JDK.               JMC and JavaFX are removed from the Oracle JDK in Java 11.
+                          
+                          
+                          
+                          
+    6.        There are no suitable methods to work with the file.          In Java 11, there are various methods, such as writeString(), readString(), 
+                                                                            and isSameFile() which help us to perform several operations on file.
+                           
+                                                                            Ex:
+                                                                            
+                                                                            1. Files writeString() methods 
+                                                                            public static Path writeString​(Path path, CharSequence csq, 
+                                                                            OpenOption... options) throws IOException
+                          
+                                                                            2.files readString methods
+                                                                            Files.readString(filePath)
+                    
+                          
+                          
+    7.        Pattern recognizing is not possible.                          Pattern recognizing is possible with the help of the asMatchPredicate() method. 
+                          
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                          
+                          
+                          

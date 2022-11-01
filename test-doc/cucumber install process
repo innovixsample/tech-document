@@ -1,0 +1,34 @@
+eclipse market place.........Install cucumber 
+
+eclipes ....new project...project...maven project(next)...[1st box click]next....gourp id and artfact id .........finish
+
+pom.xml.....cucumber java 4.8.0 maven dependancy.....(add)
+
+pom.xml.....cucumber junit 4.8.0 maven dependancy.....(add)
+
+pom.xml.....selenium java 3.141.59...dependancy........(add)
+
+src/test/resoures....create new folder(sample)......create new file(login.features).........
+
+src/test/java....new package1(step definition)....new class(login page)...1
+
+src/test/java....new package2(testing)....new class(runnerclass)...2
+class run methods sample.......
+(@RunWith(Cucumber.class))
+(@Cucumberoption(features="src/test/resources",glue="org.stepdefination"))
+(..........................path......................package name......)
+
+
+
+login.features sample......
+Feature: To validate Login Functionality in my job Application
+
+Scenario: To validate login using invalid user name and password
+Given User is in my job login page 
+When User enter invalid user name and invalid password
+And User click login button
+Then User should be in invalid credentials page
+
+
+
+

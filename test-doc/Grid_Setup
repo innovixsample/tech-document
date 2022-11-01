@@ -1,0 +1,48 @@
+Selenium Grid - Selenium Project Setup
+
+Create Maven Project 
+Delete default generated packages and java files
+Create base package under src/test/java and create Base class under it
+
+Create initializeBrowser(String broswerName) under Base classs and write the code for DesiredCapabilities and RemoteWebDriver - View Code Here
+
+Create tests package under src/test/java and create multiple sample automation tests under tests package as below:
+One 
+Extend the Base class and call initialize Browser by passing chrome
+Write the code - View Code Here
+Two
+Extend the Base class and call initialize Browser by passing firefox
+Write the code - View Code Here
+
+Check Grid status before starting it:
+Non UI Version: http://localhost:4444/status
+
+UI Version: http://localhost:4444
+
+Standalone Mode: 
+Standalone is a union of all the components of Selenium Grid.
+If we want to run Hub and Node in same machine, we can use this mode.
+
+Practical Demonstration:
+
+Create any folder say Jars folder under any location say C Drive etc. 
+Download Selenium Standalone from official website and paste into above folder. 
+Download different Browser executables and paste them into the same above folder.
+java -jar selenium-server-4.0.0.jar standalone
+
+
+Hub and Node Mode:
+
+Start Hub in the machine using:
+java -jar selenium-server-4.0.0.jar hub 
+
+Node in same machine
+java -jar selenium-server-4.0.0.jar node
+
+Node in different machine
+java -jar selenium-server-4.0.0.jar node --detect-drivers true --publish-events tcp://{hubIP}:4442 --subscribe-events tcp://{hubIP}:4443
+hubIP - Need to connect the IP of the hub with the node (different machine)
+
+
+Lot more is possible with Selenium Grid 
+Check more details here - https://www.selenium.dev/documentation/grid/

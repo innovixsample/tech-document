@@ -1,0 +1,436 @@
+Cucumber Tool
+=============
+
+Cucumber is a tool to achieve BDD(Behaviour Driven Development) framework.
+
+Steps:
+=====
+
+1.Create a Maven Project
+
+2.Add dependencies
+
+3.Download Cucumber plugin from Eclipse MarketPlace
+
+Dependencies
+============
+
+(io.cucumber)
+
+Cucumber java 4.8.0
+Cucumber junit4.8.0
+
+(api.cucumber)
+
+Cucumber java 4.2.0 
+Cucumber junit 4.2.0
+Cucumber core 4.2.0
+
+(info.cukes)
+
+Cucumber java 1.25 
+Cucumber junit 1.2.5
+Cucumber enre 4.2.5
+
+
+
+1.Feature:Feature defines the functionality which is under test 
+Eg To validate Login functionality
+
+2.Scenario in that particular functionality, what exact case we are testing
+
+Eg:
+Scenario: To validate login with invalid username and invalid password
+Scenario: To validate login with empty username and empty password
+
+3.Given: Precondition
+
+4.When Action
+
+5.Then Post condition
+
+6.And Extra or additional Condition
+
+Tags:
+
+-Using tags we can group the different scenarios or feature file 
+-Tags....... using tags,u can run only particular group of scenarios 
+-Tags can be given in feature level and scenario level
+
+To run Only the Scenarios that comes under given tagname
+=======================================================
+
+tags={"@sanity"}
+
+To ignore the scenarios that comes under given tagname
+=====================================================
+
+tags=(~sanity")    or   tags=("not sanity")
+
+And Operator:
+============
+
+Eg tags={"@sanity","@Regression"}  or tags=("@sanity and @Regression") 
+
+A scenario should contain both the @sanity and @Regression tags, then alone it will get 
+included for execution
+
+Or Operator:
+===========
+
+Scenarios with either @sanity tog or @Regression tag will be included for execution tags={"@sanity.@Regression") or tags={"@sanity or @Regression")
+
+
+
+Junit report:
+============
+
+"junit:reportfolder\filename.xml"
+
+JVM Report Generation:
+=====================
+
+ 1.Add Cucumber-reporting 4.11.2 dependency in pom.xml
+ 2.Create a class where u can create method for report generation. The input for this method 
+ will be json file path.
+ 3.In TestRunner class, inside @AfterClass call the method for generating JVM report.
+
+Method for generating JVMReport:
+===============================
+
+1.Mention the target folder location 
+2.Add details to the report using Configuration class
+3 Add json file paths into List<String>
+4.Create object for ReportBuilder class and using the created object call generateReports() 
+method.
+
+System.getProperty("user.dir").............it  return the user's current working directory 
+path as String
+
+cucumber option:
+===============
+
+features
+glue
+plugin
+tags
+monochrome
+dryRun
+strick
+snippets
+
+
+features:
+---------
+Mention the path of feature file
+
+glue:
+-----
+Mention the path of step definition file
+
+tags:
+-----
+For grouping the scenarios.We can use tags. What tag in the feature file should be executed
+
+plugin:
+-------
+Mention the different reporting format like json.xml.html
+
+monoChrome:
+----------
+Provides the better readable format in console
+
+
+dryRun:
+------
+Check if all step have step definition file.
+
+strict:
+------
+Will fail execution if there are undefined or pending steps
+
+snippets:
+--------
+Cucumber generates code snippets in Underscore style by default. If you want to change the 
+format of cucumber snippets then you can set snippet type in your cucumber options.
+
+1- SnippetType.CAMELCASE
+2- SnippetType.UNDERSCORE
+
+Background:
+----------
+
+------->is a gherkin keyword.
+
+------->Common step or precondition present in all the scenarios can be mentioned under 
+Background keyword.
+
+------->Background is common only for the scenarios present in the particular feature file.
+
+
+Hooks(@Before and @After):(Common for all the scenarios present in all the feature files)
+======
+
+Create separate class for Hooks under stepdefinition package 
+@Before ---It will execute before the execution of each scenario
+@After--- It will execute after the execution of each scenario
+
+Tagged hooks:
+============
+
+Tags+Hooks
+
+Tags -using tags,u can run only particular group of scenarios
+
+Ordered hooks:
+=============
+
+@Before will always running in incremental order(1,2,3.....)
+@After will always run in decremental order(3,2,1.........)
+
+@Before(orders Before order=1)
+@Before(orders Before order=2)
+@Before(orders Before order=3)
+
+
+@After(order=3)
+@After(order=3)
+@After(order=3)
+
+Reporting:
+plugin option is used to generate reports
+plugin={"","",""}
+
+HTML report:
+============
+"html:reportfolder"
+eg:(plugin={"pretty","html:target/Reports"}
+
+Json report:
+===========
+"json reportfolder filename.json"
+eg:(plugin={"json:target/Reports/output.json"}
+
+Junit report:
+=============
+"junit reportfolder\filename.xml"
+eg:(plugin={"junit:target/Reports/fb.xml"}
+
+JVM Report Generation:
+=====================
+
+1.Add Cucumber-reporting 4.11.2 dependency in pom.xml
+
+2.Create a class where u can create method for report generation. 
+The input for this method will be json file path 
+3.In TestRunner class,inside @AfterClass call the method for generating JVM report.
+
+                       
+
+
+
+
+                                                                                      Example program for runner class
+                                                                                      
+                                                                                  
+import org.junit.AfterClass;                                                                                     
+import org.junit.runner.RunWith;
+import org.utility.JvmReport;
+
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(features="src/test/resources",glue="org.stepdefinition",dryRun=false,
+monochrome=true,
+tags= {"@smoketest"},plugin= {"pretty","html:target/Reports","json:target/Reports/output.json",
+		"junit:target/Reports/fb.xml"}
+)
+
+public class runnerclass {
+	@AfterClass
+	public static void jvmReportGeneration() {
+		
+		JvmReport.generatejvmReport(System.getProperty("user.dir")+"/target/Reports/output.json");
+		
+		
+	}
+	
+	}
+
+
+
+
+                                                                                    Cucumber pom.xml example
+                                                                                    
+ <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>cucumperproject</groupId>
+  <artifactId>cucumperproject</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+  <dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-java</artifactId>
+    <version>4.8.0</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-junit</artifactId>
+    <version>4.8.0</version>
+    <scope>test</scope>
+</dependency><!-- https://mvnrepository.com/artifact/net.masterthought/cucumber-reporting -->
+<dependency>
+    <groupId>net.masterthought</groupId>
+    <artifactId>cucumber-reporting</artifactId>
+    <version>4.11.2</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+<dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-java</artifactId>
+    <version>3.141.59</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+<dependency>
+    <groupId>io.github.bonigarcia</groupId>
+    <artifactId>webdrivermanager</artifactId>
+    <version>4.2.2</version>
+</dependency>
+
+</dependencies>
+</project>                                                                                          
+                                                                                    
+                                                                                    
+                                                                             
+                                                                             
+                                                                             
+                                                                             
+                                                                              login.feature example
+                                                                                                                                                         
+@SmokeFeature
+Feature: To validate Login Functionality in my job Application
+
+@smoketest
+  Scenario: To validate login using invalid user name and password
+   Given User is in my job login page 
+   When User enter invalid user name and invalid password
+   And User click login button
+   Then User should be in invalid credentials page
+   
+                                                                                  
+                                                                             
+                                                                             
+                                                                             
+                                                                             
+                                                                             
+                                                                             
+                                                                             
+                                                                              jvm Report methods
+ import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.ReportBuilder;
+
+
+public class JvmReport {
+  public static void generatejvmReport(String jsonPath) {
+  	File f =new File(System.getProperty("user.dir")+"/target/Reports/JvmReport");
+  
+  	Configuration con =new Configuration(f,"my job application");
+  	con.addClassifications("platform name", "ubuntu");
+  	con.addClassifications("Browser name", "chrome");
+  	con.addClassifications("Browser version", "106");
+  	
+  	
+  	List<String> li=new ArrayList<String>();
+  li.add(jsonPath);
+  
+  ReportBuilder r =new ReportBuilder(li, con);
+  r.generateReports();
+  
+  }
+  }                                                                                   
+                                                                                    
+                                                                                    
+                                                                                @After and @Before method example
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+
+public class Hooks {
+	@Before
+	public void beforeScenari() {
+		System.out.println("Scenario starts.......");
+	}
+
+	@After
+	public void afterScenario() {
+		System.out.println("..........Scenario ends");
+	}
+}                                                                                  
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+
+
+
+
+
+
+
+
+
+
+
+

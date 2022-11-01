@@ -1,0 +1,49 @@
+ubuntu software...........install eclipse
+
+open eclipse .....help(market eclipse place).......maven install.....
+
+(file.....new project(right click)---(other)....maven(click)->maven project....next
+
+Return click .....next......click with(org.appache.maven    quickstart   1.4)....finsh...maven 
+
+project created) 
+
+POM.XML....add(dependancy-selenium java dependices-1.1)........copy the dependices...
+
+paste with (pom.xml)......
+
+Next create folder(project right click new folder).....name(driver)......finsh
+
+Next download chromedriver .....download next-extract to all.....copy the path 
+
+paste with (maven new folder)............
+
+create test class for (src/test/java)....Right click..new...Right click... click class 
+
+( create .....package name and class name)...........finish
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
